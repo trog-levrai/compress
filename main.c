@@ -1,27 +1,30 @@
 #include "main.h"
 
 int main() {
-    char *tab = malloc(10000*10000);
+    char *tab = malloc(1024*1024);
     /*lecture du fichier et enregistrement dans un tableau*/
-    FILE *texte = fopen("texte.txt","r");
+    FILE *texte = fopen("foo","r");
     if(!texte)
     {
         printf("ERREUR fichier impossible à ouvrir\n");
         exit(1);
     }
     fscanf (texte,"%c", tab);
+    printf("%s", tab);
     //Je fais un tableau de 256 pour chaque caractere ASCII
     struct match *tmp = malloc(256*sizeof(struct match));
-    while (*tab != '\0') {
-        ++(tmp[*tab].nb);
-        ++tab;
+    size_t i = 0;
+    while (i < 1024*1024 && tab[i] != '\0') {
+        ++(tmp[tab[i]].nb);
+        ++i;
     }
+    free(tab);
     sortDesc(tmp);
-    for (size_t i = 0; i < 256; ++i) {
-        printf("%c", tmp[i].ch);
+    for (i = 0; i<256 && tmp[i].nb > 0; ++i) {
+        printf("%c", (char)tmp[i].ch);
         printf(" = %zu\n", tmp[i].nb);
     }
-    //Faudra free() mais j'ai la flemme la...
+    free(tmp);
     return 0;
 }
 
@@ -38,15 +41,15 @@ void swap(struct match *tab, char a, char b) {
 void sortDesc(struct match *tab) {
     char stop, i, j;
     for (i = 255; i > 0; --i) {
-        stop = 1;
+        //stop = 1;
         for (j = 0; j < i; ++j) {
             if (tab[j].nb > tab[j+1].nb) {
                 swap(tab, j, j+1);
-                stop = 0;
+                //stop = 0;
             }
         }
-        if (stop == 1)
-            return;
+        //if (stop == 1)
+        //    return;
     }
 }
 
