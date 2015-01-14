@@ -1,8 +1,8 @@
 #include "main.h"
 
 int main() {
+    //Tableau de 1Mo tu peux changer la taille (en octet) si tu veux
     char *tab = malloc(1024*1024);
-    /*lecture du fichier et enregistrement dans un tableau*/
     FILE *texte = fopen("foo","r");
     if(!texte)
     {
@@ -41,15 +41,15 @@ void swap(struct match *tab, char a, char b) {
 void sortDesc(struct match *tab) {
     char stop, i, j;
     for (i = 255; i > 0; --i) {
-        //stop = 1;
+        stop = 1;
         for (j = 0; j < i; ++j) {
             if (tab[j].nb > tab[j+1].nb) {
                 swap(tab, j, j+1);
-                //stop = 0;
+                stop = 0;
             }
         }
-        //if (stop == 1)
-        //    return;
+        if (stop == 1)
+            return;
     }
 }
 
