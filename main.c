@@ -9,7 +9,8 @@ int main() {
         printf("ERREUR fichier impossible à ouvrir\n");
         exit(1);
     }
-    fscanf (texte,"%c", tab);
+    fgets(tab, 1024*1024, texte);
+    fclose(texte);
     printf("%s", tab);
     //Je fais un tableau de 256 pour chaque caractere ASCII
     struct match *tmp = malloc(256*sizeof(struct match));
