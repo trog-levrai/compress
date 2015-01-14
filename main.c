@@ -12,17 +12,19 @@ int main() {
     fgets(tab, 1024*1024, texte);
     fclose(texte);
     printf("%s", tab);
-    //Je fais un tableau de 256 pour chaque caractere ASCII
-    struct match *tmp = malloc(256*sizeof(struct match));
+    //Je fais un tableau de 95 pour chaque caractere ASCII qui nous interesse
+    struct match *tmp = calloc(95, sizeof(struct match));
     size_t i = 0;
     while (i < 1024*1024 && tab[i] != '\0') {
-        ++(tmp[tab[i]].nb);
+        if (tab[i] >= 32) {
+            ++(tmp[tab[i] + 32].nb);
+        }
         ++i;
     }
     free(tab);
     sortDesc(tmp);
-    for (i = 0; i<256 && tmp[i].nb > 0; ++i) {
-        printf("%c", (char)tmp[i].ch);
+    for (i = 0; i<127/* && tmp[i].nb > 0*/; ++i) {
+        printf("%c", (char)(i + 32));
         printf(" = %zu\n", tmp[i].nb);
     }
     free(tmp);
@@ -41,7 +43,7 @@ void swap(struct match *tab, char a, char b) {
 
 void sortDesc(struct match *tab) {
     char stop, i, j;
-    for (i = 255; i > 0; --i) {
+    for (i = 95; i > 1; --i) {
         stop = 1;
         for (j = 0; j < i; ++j) {
             if (tab[j].nb > tab[j+1].nb) {
@@ -55,8 +57,8 @@ void sortDesc(struct match *tab) {
 }
 
 void initTab(struct match *tab) {
-    for (size_t i = 0; i < 256; ++i) {
-        tab[i].ch = (char)i;
+    for (size_t i = 0; i < 95; ++i) {
+        tab[i].ch = (char)(i+32);
         tab[i].nb = 0;
     }
 }
