@@ -1,15 +1,17 @@
 #include "main.h"
 
 int main() {
-    //Tableau de 1Mo tu peux changer la taille (en octet) si tu veux
-    char *tab = malloc(1024*1024);
     FILE *texte = fopen("foo","r");
     if(!texte)
     {
         printf("ERREUR fichier impossible à ouvrir\n");
         exit(1);
     }
-    fgets(tab, 1024*1024, texte);
+    fseek(texte, 0, SEEK_END);
+    long size = ftell(texte) + 1;
+    char *tab = malloc(size);
+    fseek(texte, SEEK_SET, 0);
+    fgets(tab, size, texte);
     fclose(texte);
     //Je fais un tableau de 95 pour chaque caractere ASCII qui nous interesse
     struct match **tmp = malloc(95 * sizeof(struct match*));
