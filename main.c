@@ -11,7 +11,11 @@ int main() {
     long size = ftell(texte) + 1;
     char *tab = malloc(size);
     fseek(texte, SEEK_SET, 0);
-    fgets(tab, size, texte);
+    char *aux = malloc(size);
+    while (fgets(aux, size, texte) != NULL)
+        strcat(tab, aux);
+    free(aux);
+    //fgets(tab, size, texte);
     fclose(texte);
     //Je fais un tableau de 95 pour chaque caractere ASCII qui nous interesse
     struct match **tmp = malloc(95 * sizeof(struct match*));
