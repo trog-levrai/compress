@@ -6,5 +6,6 @@ struct match {
     char ch;
 };
 
-void sortDesc(struct match *tab);
-void initTab(struct match *tab);
+void sortDesc(struct match **tab);
+void initTab(struct match **tab);
+void deleteArray(struct match **tab);
