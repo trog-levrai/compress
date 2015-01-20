@@ -8,5 +8,5 @@ struct match {
 };
 
 void sortDesc(struct match **tab);
-void initTab(struct match **tab);
+void initTab(struct match **tmp);
 void deleteArray(struct match **tab);
