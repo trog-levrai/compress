@@ -1,4 +1,5 @@
 #include "main.h"
+
 int main() {
     FILE *texte = fopen("foo","r");
     if(!texte)
@@ -15,35 +16,35 @@ int main() {
         strcat(tab, aux);
     free(aux);
     fclose(texte);
-    //tab de 95 elem pour chaque caractere ASCII qui nous interesse
-    struct match **tmp = malloc(95 * sizeof(struct match*));
+    struct match **tmp = malloc(256 * sizeof(struct match*));
     initTab(tmp);
     size_t i = 0;
-    while (i < (size_t)size) {
-        if (tab[i] >= 32) {
-            ++(tmp[tab[i] - 32]->nb);
-        }
-        ++i;
-    }
+    for (i = 0; i < (size_t)size; ++i)
+        ++(tmp[tab[i]]->nb);
     free(tab);
     sortDesc(tmp);
-    for (i = 0; i < 95 && tmp[i]->nb > 0; ++i) {
-        printf("%c", tmp[i]->ch);
-        printf(" = %zu\n", tmp[i]->nb);
+    for (i = 0; i < 256 && tmp[i]->nb > 0; ++i) {
+        //On affiche que les caracteres lisibles
+        if (tmp[i]->ch >= 32 && tmp[i]->ch < 127) {
+            printf("%c ", tmp[i]->ch);
+            printf("= %zu\n", tmp[i]->nb);
+        }
     }
     deleteArray(tmp);
     free(tmp);
     return 0;
 }
+
 static inline
-void swap(struct match **tab, char a, char b) {
+void swap(struct match **tab, size_t a, size_t b) {
     struct match *aux = tab[a];
     tab[a] = tab[b];
     tab[b] = aux;
 }
+
 void sortDesc(struct match **tab) {
-    char stop, i, j;
-    for (i = 94; i > 1; --i) {
+    size_t stop, i, j;
+    for (i = 255; i > 1; --i) {
         stop = 1;
         for (j = 0; j < i; ++j) {
             if (tab[j]->nb < tab[j+1]->nb) {
@@ -55,17 +56,17 @@ void sortDesc(struct match **tab) {
             return;
     }
 }
+
 void initTab(struct match **tmp) {
-    struct match *aux;
-    for (size_t i = 0; i < 95; ++i) {
-        aux = malloc(sizeof(struct match));
-        tmp[i] = aux;
-        tmp[i]->ch = (char)(i+32);
+    for (size_t i = 0; i < 256; ++i) {
+        tmp[i] = malloc(sizeof(struct match));
+        tmp[i]->ch = (char)i;
         tmp[i]->nb = 0;
     }
 }
+
 void deleteArray(struct match **tab) {
-    for (char i = 0; i < 95; ++i)
+    for (size_t i = 0; i < 256; ++i)
         free(tab[i]);
 }
 
@@ -77,4 +78,9 @@ void ajouter(struct Noeud *tab[], char pos, int val, char sym) {
 
 void supprimer (struct Noeud *tab[], char pos) {
     free(tab[pos]);
+}
+
+void initialisation (struct match **tab, struct Noeud *foret[]) {
+    for (size_t i = 0; i < 256; ++i)
+        ajouter(foret, i, (int)tab[i]->nb, tab[i]->ch);
 }
