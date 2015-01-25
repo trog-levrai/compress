@@ -1,5 +1,4 @@
 #include "main.h"
-
 int main() {
     FILE *texte = fopen("foo","r");
     if(!texte)
@@ -16,7 +15,7 @@ int main() {
         strcat(tab, aux);
     free(aux);
     fclose(texte);
-    //Je fais un tableau de 95 pour chaque caractere ASCII qui nous interesse
+    //tab de 95 elem pour chaque caractere ASCII qui nous interesse
     struct match **tmp = malloc(95 * sizeof(struct match*));
     initTab(tmp);
     size_t i = 0;
@@ -36,14 +35,12 @@ int main() {
     free(tmp);
     return 0;
 }
-
 static inline
 void swap(struct match **tab, char a, char b) {
     struct match *aux = tab[a];
     tab[a] = tab[b];
     tab[b] = aux;
 }
-
 void sortDesc(struct match **tab) {
     char stop, i, j;
     for (i = 94; i > 1; --i) {
@@ -58,7 +55,6 @@ void sortDesc(struct match **tab) {
             return;
     }
 }
-
 void initTab(struct match **tmp) {
     struct match *aux;
     for (size_t i = 0; i < 95; ++i) {
@@ -68,7 +64,6 @@ void initTab(struct match **tmp) {
         tmp[i]->nb = 0;
     }
 }
-
 void deleteArray(struct match **tab) {
     for (char i = 0; i < 95; ++i)
         free(tab[i]);
