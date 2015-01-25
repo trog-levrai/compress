@@ -68,3 +68,9 @@ void deleteArray(struct match **tab) {
     for (char i = 0; i < 95; ++i)
         free(tab[i]);
 }
+
+void ajouter(struct Noeud *tab[], char pos, int val, char sym) {
+    tab[pos] = malloc(sizeof(struct Noeud));
+    tab[pos]->frequence = val;
+    tab[pos]->symbole = sym;
+}
