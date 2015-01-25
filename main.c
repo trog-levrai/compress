@@ -74,3 +74,7 @@ void ajouter(struct Noeud *tab[], char pos, int val, char sym) {
     tab[pos]->frequence = val;
     tab[pos]->symbole = sym;
 }
+
+void supprimer (struct Noeud *tab[], char pos) {
+    free(tab[pos]);
+}
