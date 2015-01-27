@@ -74,23 +74,26 @@ void deleteArray(struct match **tab) {
 
 //Question 05
 
-void ajouter(struct Noeud *tab[], char pos, int val, char sym) {
-    tab[pos] = malloc(sizeof(struct Noeud));
-    tab[pos]->frequence = val;
-    tab[pos]->symbole = sym;
-    tab[pos]->droite = NULL;
-    tab[pos]->gauche = NULL;
+void ajouter(struct Noeud **tab, char pos, struct Noeud *node) {
+    tab[pos] = node;
 }
 
 //Question 06
 
-void supprimer (struct Noeud *tab[], char pos) {
+void supprimer (struct Noeud **tab, char pos) {
     free(tab[pos]);
 }
 
 //Question 07
 
-void initialisation (struct match **tab, struct Noeud *foret[]) {
-    for (size_t i = 0; i < 256; ++i)
-        ajouter(foret, i, (int)tab[i]->nb, tab[i]->ch);
+void initialisation (struct match **tab, struct Noeud **foret) {
+    struct Noeud *node;
+    for (size_t i = 0; i < 256; ++i) {
+        node = malloc(sizeof(struct Noeud));
+        node->frequence = tab[i]->nb;
+        node->symbole = tab[i]->ch;
+        node->droite = NULL;
+        node->gauche = NULL;
+        ajouter(foret, i, node);
+    }
 }
