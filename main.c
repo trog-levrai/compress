@@ -35,6 +35,8 @@ int main() {
     return 0;
 }
 
+//Question 02
+
 static inline
 void swap(struct match **tab, size_t a, size_t b) {
     struct match *aux = tab[a];
@@ -70,15 +72,21 @@ void deleteArray(struct match **tab) {
         free(tab[i]);
 }
 
+//Question 05
+
 void ajouter(struct Noeud *tab[], char pos, int val, char sym) {
     tab[pos] = malloc(sizeof(struct Noeud));
     tab[pos]->frequence = val;
     tab[pos]->symbole = sym;
 }
 
+//Question 06
+
 void supprimer (struct Noeud *tab[], char pos) {
     free(tab[pos]);
 }
+
+//Question 07
 
 void initialisation (struct match **tab, struct Noeud *foret[]) {
     for (size_t i = 0; i < 256; ++i)
