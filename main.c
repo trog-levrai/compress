@@ -78,6 +78,8 @@ void ajouter(struct Noeud *tab[], char pos, int val, char sym) {
     tab[pos] = malloc(sizeof(struct Noeud));
     tab[pos]->frequence = val;
     tab[pos]->symbole = sym;
+    tab[pos]->droite = NULL;
+    tab[pos]->gauche = NULL;
 }
 
 //Question 06
