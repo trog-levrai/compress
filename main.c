@@ -86,7 +86,7 @@ void supprimer (struct Noeud **tab, char pos) {
 
 //Question 07
 
-void initialisation (struct match **tab, struct Noeud **foret) {
+void initialisation(struct match **tab, struct Noeud **foret) {
     struct Noeud *node;
     for (size_t i = 0; i < 256; ++i) {
         node = malloc(sizeof(struct Noeud));
@@ -96,4 +96,23 @@ void initialisation (struct match **tab, struct Noeud **foret) {
         node->gauche = NULL;
         ajouter(foret, i, node);
     }
+}
+
+//Question 08
+//Dans la question 02 on demande l'orde decroissant et maintenant l'ordre croissant ^^
+//Je le fais en decroissant c'est mieux
+
+void fusion(struct Noeud **foret) {
+    size_t i = 0;
+    while (foret[i] != NULL)
+        ++i;
+    if (i <= 1)
+        return;
+    struct Noeud *node = malloc(sizeof(struct Noeud));
+    node->symbole = 0;
+    node->frequence = foret[i]->frequence + foret[i-1]->frequence;
+    node->gauche = foret[i-1];
+    node->droite = foret[i];
+    foret[i] = NULL;
+    foret[i-1] = node;
 }
