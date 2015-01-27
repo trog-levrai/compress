@@ -21,4 +21,5 @@ void deleteArray(struct match **tab);
 void ajouter(struct Noeud **tab, char pos, struct Noeud *node);
 void supprimer(struct Noeud **tab, char pos);
 void initialisation(struct match **tab, struct Noeud **foret);
-void fusion(struct Noeud **foret);
+int fusion(struct Noeud **foret);
+void fusion_iteree(struct Noeud **foret);

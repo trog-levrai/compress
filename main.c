@@ -102,12 +102,12 @@ void initialisation(struct match **tab, struct Noeud **foret) {
 //Dans la question 02 on demande l'orde decroissant et maintenant l'ordre croissant ^^
 //Je le fais en decroissant c'est mieux
 
-void fusion(struct Noeud **foret) {
+int fusion(struct Noeud **foret) {
     size_t i = 0;
     while (foret[i] != NULL)
         ++i;
     if (i <= 1)
-        return;
+        return 0;
     struct Noeud *node = malloc(sizeof(struct Noeud));
     node->symbole = 0;
     node->frequence = foret[i]->frequence + foret[i-1]->frequence;
@@ -115,4 +115,11 @@ void fusion(struct Noeud **foret) {
     node->droite = foret[i];
     foret[i] = NULL;
     foret[i-1] = node;
+    return 42;
+}
+
+//Question 09
+
+void fusion_iteree(struct Noeud **foret) {
+    while (fusion(foret) == 42) {}
 }
