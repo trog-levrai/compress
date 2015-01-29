@@ -123,3 +123,5 @@ int fusion(struct Noeud **foret) {
 void fusion_iteree(struct Noeud **foret) {
     while (fusion(foret) == 42) {}
 }
+
+//Question 10 dans les fichiers question10.c et question10.h
