@@ -1,16 +1,16 @@
 #ifndef _Q10_
 #define _Q10_
 
-#include "main.h"
+#include "question2-9.h"
 
 struct Table {
     struct Table *next;
+    size_t code;
     char ch;
-    char code;
 };
 
-char addBin(char a, char bin);
-struct Table* constructTable(struct Noeud *foret, char a, struct Table *tab);
+char addBin(size_t code, char bin);
+struct Table* constructTable(struct Noeud *foret, size_t code, struct Table *tab);
 void getTable(struct Noeud **foret, struct Table *tab);
 
 #endif

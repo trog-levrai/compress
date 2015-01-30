@@ -1,4 +1,4 @@
-#include "main.h"
+#include "question2-9.h"
 
 int main() {
     FILE *texte = fopen("foo","r");
@@ -74,21 +74,21 @@ void deleteArray(struct match **tab) {
 
 //Question 05
 
-void ajouter(struct Noeud **tab, char pos, struct Noeud *node) {
-    tab[pos] = node;
+void ajouter(struct Noeud **foret, char pos, struct Noeud *node) {
+    foret[pos] = node;
 }
 
 //Question 06
 
-void supprimer (struct Noeud **tab, char pos) {
-    free(tab[pos]);
+void supprimer(struct Noeud **foret, char pos) {
+    free(foret[pos]);
 }
 
 //Question 07
 
 void initialisation(struct match **tab, struct Noeud **foret) {
     struct Noeud *node;
-    for (size_t i = 0; i < 256; ++i) {
+    for (size_t i = 0; i < MAX_ARBRES; ++i) {
         node = malloc(sizeof(struct Noeud));
         node->frequence = tab[i]->nb;
         node->symbole = tab[i]->ch;
@@ -104,7 +104,7 @@ void initialisation(struct match **tab, struct Noeud **foret) {
 
 int fusion(struct Noeud **foret) {
     size_t i = 0;
-    while (foret[i] != NULL)
+    while (i < MAX_ARBRES && foret[i] != NULL)
         ++i;
     if (i <= 1)
         return 0;
@@ -113,6 +113,7 @@ int fusion(struct Noeud **foret) {
     node->frequence = foret[i]->frequence + foret[i-1]->frequence;
     node->gauche = foret[i-1];
     node->droite = foret[i];
+    supprimer(foret, i);
     foret[i] = NULL;
     foret[i-1] = node;
     return 42;

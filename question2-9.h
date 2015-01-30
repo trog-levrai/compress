@@ -23,8 +23,8 @@ struct Noeud {
 void sortDesc(struct match **tab);
 void initTab(struct match **tmp);
 void deleteArray(struct match **tab);
-void ajouter(struct Noeud **tab, char pos, struct Noeud *node);
-void supprimer(struct Noeud **tab, char pos);
+void ajouter(struct Noeud **foret, char pos, struct Noeud *node);
+void supprimer(struct Noeud **foret, char pos);
 void initialisation(struct match **tab, struct Noeud **foret);
 int fusion(struct Noeud **foret);
 void fusion_iteree(struct Noeud **foret);

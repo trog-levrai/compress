@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O3 -Werror -Wextra -std=c99
 OUT=main
-FILES=question10.c main.c
+FILES=question10.c question2-9.c
 all:
 	$(CC) $(FILES) $(CFLAGS) -o $(OUT)
 clean:
